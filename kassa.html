@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Kassa</title>
+	<link rel="stylesheet" type="text/css" href="kassa.css">
+</head>
+<body>
+	<div class="header">
+		<a href="index.html">Kassa</a>
+	</div>
+	<div class="container"> 
+		<h2>Obaid's kassa:</h2>
+		<table>
+			<tr>
+				<th>Rätt</th>
+				<th>Pris</th>
+				<th>Antal</th>
+			</tr>
+			<tr>
+				<td>Trenbolone 10ml vial</td>
+				<td>800 kr</td>
+				<td>
+					<button onclick="incrementCount(1)">+</button>
+					<span id="count1">0</span>
+					<button onclick="decrementCount(1)">-</button>
+				</td>
+			</tr>
+			<tr>
+				<td>Anavar 10mg 100 piller</td>
+				<td>680 kr</td>
+				<td>
+					<button onclick="incrementCount(2)">+</button>
+					<span id="count2">0</span>
+					<button onclick="decrementCount(2)">-</button>
+				</td>
+			</tr>
+			<tr>
+				<td>Testosteron 10ml vial</td>
+					<td>560 kr</td>
+				<td>
+					<button onclick="incrementCount(3)">+</button>
+					<span id="count3">0</span>
+					<button onclick="decrementCount(3)">-</button>
+				</td>
+			</tr>
+			<tr>
+				<td>Nadrolone 10 ampouler</td>
+				<td>850 kr</td>
+				<td>
+					<button onclick="incrementCount(4)">+</button>
+					<span id="count4">0</span>
+					<button onclick="decrementCount(4)">-</button>
+				</td>
+			</tr>
+			<tr>
+				<td>HGH36IU 1 Pen</td>
+				<td>6200 kr</td>
+				<td>
+					<button onclick="incrementCount(5)">+</button>
+					<span id="count5">0</span>
+					<button onclick="decrementCount(5)">-</button>
+				</td>
+			</tr>
+			<tr>
+				<td>Boldebolin 10ml vial</td>
+				<td>650 kr</td>
+				<td>
+					<button onclick="incrementCount(6)">+</button>
+					<span id="count6">0</span>
+					<button onclick="decrementCount(6)">-</button>
+				</td>
+			</tr>
+		</table>
+		<h2>Total summa:</h2>
+		<p id="total">0 kr</p>
+		<button><a href="betalning.html">Till betalning</a></button>
+	</div>
+    
+	<script>
+    function incrementCount(index) {
+        var count = document.getElementById("count" + index);
+        count.innerHTML = parseInt(count.innerHTML) + 1;
+        updateTotal();
+      }
+      
+      function decrementCount(index) {
+        var count = document.getElementById("count" + index);
+        var value = parseInt(count.innerHTML);
+        if (value > 0) {
+          count.innerHTML = value - 1;
+          updateTotal();
+        }
+      }
+      
+      function updateTotal() {
+        var count1 = parseInt(document.getElementById("count1").innerHTML);
+        var count2 = parseInt(document.getElementById("count2").innerHTML);
+        var count3 = parseInt(document.getElementById("count3").innerHTML);
+        var count4 = parseInt(document.getElementById("count4").innerHTML);
+        var count5 = parseInt(document.getElementById("count5").innerHTML);
+        var count6 = parseInt(document.getElementById("count6").innerHTML);
+      
+        var price1 = 800;
+        var price2 = 680;
+        var price3 = 560;
+        var price4 = 850;
+        var price5 = 6200;
+        var price6 = 650;
+      
+        var total = (count1 * price1) + (count2 * price2) + (count3 * price3) + (count4 * price4) + (count5 * price5) + (count6 * price6);
+        document.getElementById("total").innerHTML = total + " kr";
+        localStorage.setItem("total", total);
+      }
+      </script>
+
+	

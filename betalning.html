@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Betalning</title>
+	<link rel="stylesheet" href="betalning.css">
+</head>
+<body>
+	<div class="header">
+		<a href="index.html">Betalning</a>
+	</div>
+	<div class="container">
+		<h2>Total summa att betala:</h2>
+		<p id="total">0 kr</p>
+		<form>
+            <label for="name">Namn:</label>
+            <input type="text" id="name" name="name" placeholder="Ange ditt namn">
+            <!-- Kortnummer-låda -->
+            <label for="card-number">Kortnummer:</label>
+            <input type="text" id="card-number" name="card-number" placeholder="XXXXXXXXXXXXXXXX">
+          
+            <!-- CVV-låda -->
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" name="cvv" placeholder="XXX">
+          
+            <!-- Utgångsdatum-låda -->
+            <label for="expiry">Utgångsdatum:</label>
+            <input type="text" id="expiry" name="expiry" placeholder="MM/ÅÅ">
+          
+            <!-- Submit-knapp -->
+            <button type="submit"><a href="index.html">Bekräfta betalning och gå tillbaka till startsidan</a></button>
+          </form>
+	</div>
+	<script>
+		// Hämta totala kostnaden från kassasidan
+		var total = localStorage.getItem("total");
+
+		// Visa totala kostnaden
+		document.getElementById("total").innerHTML = total + " kr";
+
+		// Lyssna på formulärsubmit
+		document.querySelector("form").addEventListener("submit", function(event) {
+			// Förhindra standardformulärhantering
+			event.preventDefault();
+
+			// Hämta namn och kreditkortsinformation
+			var name = document.getElementById("name").value;
+			var cardnumber = document.getElementById("cardnumber").value;
+
+			// Skicka informationen till en server med hjälp av fetch-API:et
+			fetch("server.php", {
+				method: "POST",
+				body: JSON.stringify({
+					name: name,
+					cardnumber: cardnumber,
+					total: total
+				})
+			})
+			.then(function(response) {
+				if (response.ok) {
+					alert("Tack för din betalning!");
+					// Töm localStorage
+					localStorage.clear();
+					// Gå till startsidan
+					window.location.href = "index.html";
+				} else {
+					alert("Något gick fel. Försök igen.");
+				}
+			})
+			.catch(function(error) {
+				console.error(error);
+				alert("Något gick fel. Försök igen.");
+			});
+		});
+	</script>
+</body>
+</html>
